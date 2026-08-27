@@ -44,9 +44,13 @@ intellijPlatform {
     pluginVerification {
         ides {
             current()
-            providers.gradleProperty("cmdtoolsLatestIdePath").orNull?.let {
-                local(file(it))
-            } ?: latest()
+            val latestIdePath = providers.gradleProperty("cmdtoolsLatestIdePath").orNull
+            when {
+                !latestIdePath.isNullOrBlank() -> local(file(latestIdePath))
+                // Skip resolving the remote "latest" IDE on CI (slow / flaky).
+                System.getenv("GITHUB_ACTIONS") == "true" -> Unit
+                else -> latest()
+            }
         }
     }
 
