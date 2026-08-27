@@ -1,0 +1,112 @@
+<idea-plugin>
+    <id>com.github.zouyq.cmdTools</id>
+    <name>CmdTools</name>
+    <version>0.6.5</version>
+    <vendor url="https://github.com/zouyq/cmdtools">zouyq</vendor>
+
+    <description><![CDATA[
+        <p>Cross-platform command tools for IntelliJ Platform IDEs:</p>
+        <ul>
+            <li>open a configurable terminal in the current file's directory;</li>
+            <li>optionally run a startup command such as <code>claude</code> or <code>pi</code>;</li>
+            <li>reveal the current file in the operating system's file manager;</li>
+            <li>terminate processes whose executable names match a configurable regular expression.</li>
+        </ul>
+        <p>Windows, macOS, and Linux are supported. Configure CmdTools under Settings | Tools.</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>0.6.5</h3>
+        <ul>
+            <li>Fixed macOS startup commands for Alacritty, kitty, and WezTerm (no longer forced through Terminal.app).</li>
+            <li>Linux startup commands now use $SHELL instead of hard-coded bash, with a generic terminal fallback.</li>
+        </ul>
+        <h3>0.6.4</h3>
+        <ul>
+            <li>Fixed duplicate toolbar icons in New UI by registering only in MainToolbarCenter.</li>
+        </ul>
+        <h3>0.6.3</h3>
+        <ul>
+            <li>Moved the CmdTools toolbar group to the leftmost position of the New UI center toolbar.</li>
+        </ul>
+        <h3>0.6.2</h3>
+        <ul>
+            <li>Settings page fits the preferences window width and shows process-regex examples.</li>
+            <li>Added optional "Run in terminal" startup command (e.g. claude / pi).</li>
+        </ul>
+        <h3>0.6.1</h3>
+        <ul>
+            <li>macOS and Linux terminal settings now use the same preset + custom executable/arguments model as Windows.</li>
+        </ul>
+        <h3>0.6.0</h3>
+        <ul>
+            <li>Fixed Windows terminal launch so PowerShell/cmd open a visible window from the IDE.</li>
+            <li>Kill confirmation now lists the matched processes (PID + name) before terminating.</li>
+            <li>Replaced the kill-process icon (no longer looks like a close button).</li>
+            <li>Grouped toolbar actions into a single CmdTools toolbar group.</li>
+            <li>Improved Linux file reveal, Linux/Windows terminal launch flags, and IDE-process protection.</li>
+            <li>OS-aware settings UI with browse buttons for custom executables.</li>
+            <li>Build no longer requires a hard-coded local IDE path.</li>
+        </ul>
+        <h3>0.5.0</h3>
+        <ul>
+            <li>Added Windows, macOS, and Linux terminal and file-manager support.</li>
+            <li>Added configurable terminal selection and process-name regular expressions.</li>
+            <li>Added confirmation and IDE-process protection before terminating matching processes.</li>
+            <li>Added theme-aware vector icons and moved operating-system work off the UI thread.</li>
+        </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable id="com.github.zouyq.cmdTools.settings"
+                                 parentId="tools"
+                                 displayName="CmdTools"
+                                 instance="com.github.zouyq.config.CmdToolsConfigurable"/>
+    </extensions>
+
+    <actions>
+        <action id="CmdTools.OpenFileLocation"
+                class="com.github.zouyq.actions.OpenExplorerAction"
+                text="Open Current File Location"
+                description="Reveal the current file in the system file manager"
+                icon="/icons/explore.svg"/>
+
+        <action id="CmdTools.OpenTerminal"
+                class="com.github.zouyq.actions.OpenCmdAction"
+                text="Open Terminal Here"
+                description="Open the configured terminal in the current file's directory"
+                icon="/icons/console.svg"/>
+
+        <action id="CmdTools.KillMatchingProcesses"
+                class="com.github.zouyq.actions.KillMatchingProcessesAction"
+                text="Kill Matching Processes"
+                description="Terminate processes matching the configured executable-name regular expression"
+                icon="/icons/process.svg"/>
+
+        <!-- New UI: center toolbar leftmost. Do not also add to MainToolBar (would duplicate in New UI). -->
+        <group id="CmdTools.Toolbar"
+               text="CmdTools"
+               description="CmdTools shortcuts"
+               popup="false">
+            <reference ref="CmdTools.OpenTerminal"/>
+            <reference ref="CmdTools.OpenFileLocation"/>
+            <reference ref="CmdTools.KillMatchingProcesses"/>
+            <add-to-group group-id="MainToolbarCenter" anchor="first"/>
+        </group>
+
+        <group id="CmdTools.Menu"
+               text="CmdTools"
+               popup="true"
+               icon="/icons/console.svg">
+            <reference ref="CmdTools.OpenTerminal"/>
+            <reference ref="CmdTools.OpenFileLocation"/>
+            <separator/>
+            <reference ref="CmdTools.KillMatchingProcesses"/>
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </group>
+    </actions>
+</idea-plugin>

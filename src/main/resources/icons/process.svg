@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <!-- process list -->
+  <rect x="1.5" y="2.5" width="9" height="2" rx="0.5" fill="#6C707E"/>
+  <rect x="1.5" y="7" width="7" height="2" rx="0.5" fill="#6C707E"/>
+  <rect x="1.5" y="11.5" width="8" height="2" rx="0.5" fill="#6C707E"/>
+  <!-- stop / kill (square, not an X close glyph) -->
+  <rect x="10.5" y="5.5" width="4" height="5" rx="0.75" fill="#C75450"/>
+</svg>
