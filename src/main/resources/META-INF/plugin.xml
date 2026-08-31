@@ -5,14 +5,30 @@
     <vendor url="https://github.com/zouyq/cmdtools">zouyq</vendor>
 
     <description><![CDATA[
-        <p>Cross-platform command tools for IntelliJ Platform IDEs:</p>
+        <p>Cross-platform IntelliJ Platform plugin for terminal, file reveal, and process management.</p>
         <ul>
-            <li>open a configurable terminal in the current file's directory;</li>
-            <li>optionally run a startup command such as <code>claude</code> or <code>pi</code>;</li>
-            <li>reveal the current file in the operating system's file manager;</li>
-            <li>terminate processes whose executable names match a configurable regular expression.</li>
+            <li>Open a system terminal in the current file's directory (optional startup command, e.g. <code>claude</code> / <code>pi</code>)</li>
+            <li>Reveal the current file in Explorer / Finder / file manager</li>
+            <li>Terminate processes whose names match a regular expression (with confirmation)</li>
         </ul>
-        <p>Windows, macOS, and Linux are supported. Configure CmdTools under Settings | Tools.</p>
+        <p><b>Access:</b> leftmost of the main toolbar center, <b>Tools &gt; CmdTools</b>, editor/project view context menu, or Find Action.</p>
+        <p><b>Settings:</b> <b>Settings &gt; Tools &gt; CmdTools</b></p>
+        <p>Process regex examples: <code>(?i)java</code>, <code>(?i)java|node</code>. The current IDE and its parent processes, and other JetBrains IDE JVMs, are never terminated.</p>
+        <p><b>Screenshots</b></p>
+        <p><img src="https://plugins.jetbrains.com/files/12413/screenshot_5a5d0a7f-7425-4ca8-8144-a27bb272ef01" alt="CmdTools demo" width="800"/></p>
+        <p>Toolbar actions:</p>
+        <p><img src="https://plugins.jetbrains.com/files/12413/screenshot_1259b3fc-bdfc-4dd0-ab9d-82d2d9207a14" alt="Toolbar icons" width="800"/></p>
+        <p>Settings page:</p>
+        <p><img src="https://plugins.jetbrains.com/files/12413/screenshot_73990f77-1230-4a62-ae63-3c689b1a9714" alt="Settings" width="800"/></p>
+        <p><b>Compatibility</b></p>
+        <ul>
+            <li>OS: Windows / macOS / Linux</li>
+            <li>IDE: IntelliJ Platform <b>2024.2+</b> (<code>since-build=242</code>, no <code>until-build</code>)</li>
+            <li>Dependency: <code>com.intellij.modules.platform</code> only</li>
+        </ul>
+        <p>Works on IntelliJ Platform products such as IntelliJ IDEA, PyCharm, GoLand, WebStorm, CLion, PhpStorm, Rider, DataGrip, RubyMine, Android Studio, and similar. Fleet, Toolbox, and the Gateway client itself are not that kind of IDE and cannot install this plugin.</p>
+        <p>Newer IDE versions usually work without a plugin bump. If JetBrains changes the toolbar/API, behavior may break until a new release is verified with Plugin Verifier.</p>
+        <p>Source code: <a href="https://github.com/zouyq/cmdtools">github.com/zouyq/cmdtools</a></p>
     ]]></description>
 
     <change-notes><![CDATA[
